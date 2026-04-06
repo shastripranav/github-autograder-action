@@ -1,0 +1,31 @@
+## 📝 Auto-Grader Report
+
+| Dimension | Result | Weight | Score |
+|-----------|--------|--------|-------|
+{%- for s in scorecard.scores %}
+| {{ s.dimension }} | {{ s.result_summary }} | {{ s.weight }}% | {{ "%.1f"|format(s.score) }}/{{ s.max_score|int }} |
+{%- endfor %}
+| **Total** | | | **{{ "%.1f"|format(scorecard.total_score) }}/{{ scorecard.max_possible|int }}** |
+
+{% if scorecard.test_failures %}
+### Failing Tests
+{% for f in scorecard.test_failures -%}
+- `{{ f.test_name }}` — {{ f.message }}
+{% endfor %}
+{% endif %}
+
+{%- if scorecard.quality_issues %}
+### Code Quality Issues
+{% for issue in scorecard.quality_issues -%}
+- `{{ issue.file }}:{{ issue.line }}` — {{ issue.code }} {{ issue.message }}
+{% endfor %}
+{% endif %}
+
+{%- if scorecard.coverage_files %}
+### Coverage Report
+| File | Coverage | Status |
+|------|----------|--------|
+{%- for f in scorecard.coverage_files %}
+| {{ f.file }} | {{ "%.0f"|format(f.coverage_pct) }}% | {{ f.status }} |
+{%- endfor %}
+{% endif %}

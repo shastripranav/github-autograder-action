@@ -1,0 +1,20 @@
+name: Auto-Grade
+on: [push, pull_request]
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Grade Submission
+        uses: shastripranav/github-autograder@v1
+        with:
+          config: grader-config.yml
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Scorecard
+        uses: actions/upload-artifact@v4
+        with:
+          name: scorecard
+          path: scorecard.json

@@ -1,0 +1,34 @@
+name: 'Code Auto-Grader'
+description: 'Multi-dimensional code evaluation with weighted scorecard — correctness, quality, coverage, performance'
+author: 'Pranav Shastri'
+
+branding:
+  icon: 'check-circle'
+  color: 'green'
+
+inputs:
+  config:
+    description: 'Path to grader-config.yml'
+    required: false
+    default: 'grader-config.yml'
+  github-token:
+    description: 'GitHub token for posting PR comments'
+    required: true
+  post-comment:
+    description: 'Post results as PR comment'
+    required: false
+    default: 'true'
+
+outputs:
+  total-score:
+    description: 'Total weighted score (0-100)'
+  scorecard-json:
+    description: 'Full scorecard as JSON string'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.config }}
+    - ${{ inputs.github-token }}
+    - ${{ inputs.post-comment }}

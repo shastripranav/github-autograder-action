@@ -1,0 +1,31 @@
+# grader-config.yml — place in each assignment repo root
+language: python  # python or javascript
+
+correctness:
+  weight: 50
+  framework: pytest           # pytest or jest
+  test_dir: tests/
+  timeout: 30                 # seconds per test
+
+quality:
+  weight: 20
+  linter: ruff                # ruff or eslint
+  config: pyproject.toml      # linter config file (optional)
+  max_issues: 5               # <= 5 issues = full marks
+  zero_score_at: 20           # >= 20 issues = 0 marks
+
+coverage:
+  weight: 20
+  tool: coverage              # coverage (Python) or istanbul (JS)
+  minimum: 60                 # below this = 0 points
+  target: 90                  # at or above = full points
+  source_dirs:
+    - src/
+
+performance:
+  weight: 10
+  enabled: false              # set to true to enable benchmarks
+  benchmarks:
+    - name: "large_input"
+      command: "pytest tests/test_performance.py -k large_input"
+      max_time: 2.0           # seconds

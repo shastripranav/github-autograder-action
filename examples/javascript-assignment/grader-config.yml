@@ -1,0 +1,25 @@
+language: javascript
+
+correctness:
+  weight: 50
+  framework: jest
+  test_dir: tests/
+  timeout: 30
+
+quality:
+  weight: 20
+  linter: eslint
+  max_issues: 5
+  zero_score_at: 20
+
+coverage:
+  weight: 20
+  tool: istanbul
+  minimum: 60
+  target: 90
+  source_dirs:
+    - src/
+
+performance:
+  weight: 10
+  enabled: false

@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "github-autograder"
+version = "0.1.0"
+description = "GitHub Actions auto-grader for multi-dimensional code assessment"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [{ name = "Pranav Shastri" }]
+dependencies = [
+    "pydantic>=2.5,<3.0",
+    "pyyaml>=6.0,<7.0",
+    "jinja2>=3.1,<4.0",
+    "httpx>=0.25,<1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "pytest-asyncio>=0.21",
+    "ruff>=0.1.0",
+]
+grading = [
+    "pytest>=7.4",
+    "pytest-json-report>=1.5",
+    "pytest-timeout>=2.2",
+    "ruff>=0.1.0",
+    "coverage[toml]>=7.3",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+extend-exclude = ["tests/fixtures"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = ["tests/fixtures"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*"]

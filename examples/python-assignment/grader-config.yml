@@ -1,0 +1,25 @@
+language: python
+
+correctness:
+  weight: 50
+  framework: pytest
+  test_dir: tests/
+  timeout: 30
+
+quality:
+  weight: 20
+  linter: ruff
+  max_issues: 5
+  zero_score_at: 20
+
+coverage:
+  weight: 20
+  tool: coverage
+  minimum: 60
+  target: 90
+  source_dirs:
+    - src/
+
+performance:
+  weight: 10
+  enabled: false
