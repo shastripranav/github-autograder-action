@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /grader
 
 COPY pyproject.toml .
+COPY README.md .
 COPY src/ src/
 COPY templates/ templates/
 
