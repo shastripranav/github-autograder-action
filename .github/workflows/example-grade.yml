@@ -1,0 +1,36 @@
+name: Example Grading Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  grade-example:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install grader
+        run: pip install -e ".[dev,grading]"
+
+      - name: Grade passing submission
+        run: |
+          cd tests/fixtures/passing_submission
+          python -m pytest tests/ --tb=short -q
+          echo "--- Passing submission: all tests should pass ---"
+
+      - name: Grade partial submission
+        run: |
+          cd tests/fixtures/partial_submission
+          python -m pytest tests/ --tb=short -q || true
+          echo "--- Partial submission: 7/10 expected ---"
+
+      - name: Grade failing submission
+        run: |
+          cd tests/fixtures/failing_submission
+          python -m pytest tests/ --tb=short -q || true
+          echo "--- Failing submission: 2/10 expected ---"
