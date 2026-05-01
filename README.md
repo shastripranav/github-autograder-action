@@ -1,5 +1,7 @@
 # GitHub Actions Auto-Grader
 
+[![CI](https://github.com/shastripranav/github-autograder-action/actions/workflows/ci.yml/badge.svg)](https://github.com/shastripranav/github-autograder-action/actions/workflows/ci.yml)
+
 Multi-dimensional code assessment engine packaged as a GitHub Action. Evaluates student submissions on **correctness**, **code quality**, **test coverage**, and **performance** — generating weighted scorecards as PR comments.
 
 > Drop a config file and a workflow into any assignment repo and it works. No infrastructure required.
